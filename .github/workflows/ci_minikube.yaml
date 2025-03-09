@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Dockerimages
         run: |
-          docker build -t configserver:latest ./services/config-server
+          docker build -t config-server:latest ./services/config-server
           docker build -t discovery:latest ./services/discovery
           docker build -t apigataway:latest ./services/api_gataway
           docker build -t dipendenti:latest ./services/dipendenti
