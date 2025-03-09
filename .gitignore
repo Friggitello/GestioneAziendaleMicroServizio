@@ -27,3 +27,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+services/dipendenti/target/dipendenti-0.0.1-SNAPSHOT.jar
