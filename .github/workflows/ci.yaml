@@ -22,12 +22,12 @@ jobs:
 
       - name: Build maven
         run: |
-          cd services/config-server && mvn clean compile package -U
-          cd ../discovery && mvn clean compile package -U
-          cd ../api_gateway && mvn clean compile package -U
-          cd ../dipendenti && mvn clean compile package -U
-          cd ../newses && mvn clean compile package -U
-          cd ../notifications && mvn clean compile package -U
+          cd services/config-server && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../discovery && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../api_gateway && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../dipendenti && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../newses && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../notifications && mvn clean compile package -U -Djdk.compiler.disablePreview=true
 
       - name: Run tests
         run: |
