@@ -24,16 +24,35 @@ jobs:
         run: |
           cd services/config-server && mvn clean compile package -U -Djdk.compiler.disablePreview=true
           cd ../discovery && mvn clean compile package -U -Djdk.compiler.disablePreview=true
-          cd ../api_gateway && mvn clean compile package -U -Djdk.compiler.disablePreview=true
+          cd ../api_gataway && mvn clean compile package -U -Djdk.compiler.disablePreview=true
           cd ../dipendenti && mvn clean compile package install -U -Djdk.compiler.disablePreview=true
           cd ../newses && mvn clean compile package install -U -Djdk.compiler.disablePreview=true
-          cd ../notifications && mvn clean compile package -U -Djdk.compiler.disablePreview=true
 
       - name: Run tests
         run: |
           cd services/config-server && mvn test
           cd ../discovery && mvn test
-          cd ../api_gateway && mvn test
+          cd ../api_gataway && mvn test
           cd ../dipendenti && mvn test
           cd ../newses && mvn test
-          cd ../notifications && mvn test
+
+      - name: Build dockerimage configserver
+        run: |
+          cd services/config-server
+          docker build -t friggitello/configserver:latest
+      - name: Build dockerimage discovery
+        run: |
+          cd services/discovery
+          docker build -t friggitello/discovery:latest
+      - name: Build dockerimage apigateway
+        run: |
+          cd services/api_gataway
+          docker build -t friggitello/apigataway:latest
+      - name: Build dockerimage dipendenti
+        run: |
+          cd services/dipendenti
+          docker build -t friggitello/dipendenti:latest
+      - name: Build dockerimage newses
+        run: |
+          cd services/newses
+          docker build -t friggitello/newses:latest
