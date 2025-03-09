@@ -17,10 +17,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Setup minikube
-        uses: detonation/minikube-action@v2
-        with:
-          minikube-version: 'latest'
+      - name: install minikube
+        run: |
+          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          sudo mv minikube-linux-amd64 /usr/local/bin/minikube
+          sudo chmod +x /usr/local/bin/minikube
+          minikube version
 
       - name: start minikube
         run: |
