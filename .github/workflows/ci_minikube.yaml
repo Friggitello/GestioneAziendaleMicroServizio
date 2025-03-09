@@ -63,7 +63,7 @@ jobs:
       - name: wait for deployments
         run: |
           kubectl rollout status deployment/dipendenti-deployment
-          kubectl rollout status deployment/configserver-deployment
+          kubectl rollout status deployment/config-server-deployment
           kubectl rollout status deployment/discovery-deployment
           kubectl rollout status deployment/newses-deployment
           kubectl rollout status deployment/apigataway-deployment

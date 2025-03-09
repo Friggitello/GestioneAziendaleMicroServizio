@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: configserver-deployment
+  name: config-server-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: configserver
+      app: config-server
     template:
       metadata:
         labels:
-          app: configserver
+          app: config-server
       spec:
         containers:
-          - name: configserver
-            image: configserver:latest
+          - name: config-server
+            image: config-server:latest
             ports:
               - containerPort: 8888
