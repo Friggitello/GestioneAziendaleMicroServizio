@@ -7,13 +7,13 @@ spec:
   selector:
     matchLabels:
       app: apigataway
-    template:
-      metadata:
-        labels:
-          app: apigataway
-      spec:
-        containers:
-          - name: apigataway
-            image: apigataway:latest
-            ports:
-              - containerPort: 8222
+  template:
+    metadata:
+      labels:
+        app: apigataway
+    spec:
+      containers:
+        - name: apigataway
+          image: apigataway:latest
+          ports:
+            - containerPort: 8222

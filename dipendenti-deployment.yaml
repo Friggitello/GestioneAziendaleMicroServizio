@@ -7,13 +7,13 @@ spec:
   selector:
     matchLabels:
       app: dipendenti
-    template:
-      metadata:
-        labels:
-          app: dipendenti
-      spec:
-        containers:
-          - name: dipendenti
-            image: dipendenti:latest
-            ports:
-              - containerPort: 8072
+  template:
+    metadata:
+      labels:
+        app: dipendenti
+    spec:
+      containers:
+        - name: dipendenti
+          image: dipendenti:latest
+          ports:
+            - containerPort: 8072
