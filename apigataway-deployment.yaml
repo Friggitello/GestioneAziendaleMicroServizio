@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apigataway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apigataway
+    template:
+      metadata:
+        labels:
+          app: apigataway
+      spec:
+        containers:
+          - name: apigataway
+            image: apigataway:latest
+            ports:
+              - containerPort: 8222

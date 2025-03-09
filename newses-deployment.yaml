@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newses-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: newses
+    template:
+      metadata:
+        labels:
+          app: newses
+      spec:
+        containers:
+          - name: newses
+            image: newses:latest
+            ports:
+              - containerPort: 8073

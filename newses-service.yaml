@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: newses-service
+spec:
+  selector:
+    app: newses
+  ports:
+    - protocol: TCP
+      port: 8073
+      targetPort: 8073
+  type: NodePort

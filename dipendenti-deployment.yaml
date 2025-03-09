@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dipendenti-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dipendenti
+    template:
+      metadata:
+        labels:
+          app: dipendenti
+      spec:
+        containers:
+          - name: dipendenti
+            image: dipendenti:latest
+            ports:
+              - containerPort: 8072

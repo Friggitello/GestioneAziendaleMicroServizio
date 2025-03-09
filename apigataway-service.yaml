@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigataway-service
+spec:
+  selector:
+    app: apigataway
+  ports:
+    - protocol: TCP
+      port: 8222
+      targetPort: 8222
+  type: NodePort

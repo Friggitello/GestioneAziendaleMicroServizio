@@ -1,0 +1,77 @@
+name: CI con Minikube e Docker
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Setup minikube
+        uses: detonation/minikube-action@v2
+        with:
+          minikube-version: 'latest'
+
+      - name: start minikube
+        run: |
+          minikube start --driver=docker
+
+      - name: Build Dockerimages
+        run: |
+          docker build -t configserver:latest ./services/config-server
+          docker build -t discovery:latest ./services/discovery
+          docker build -t apigataway:latest ./services/api_gataway
+          docker build -t dipendenti:latest ./services/dipendenti
+          docker build -t newses:latest ./services/newses
+
+      - name: setup docker environment per minikube
+        run: |
+          eval $(minikube -p minikube docker-env)
+          docker images
+
+      - name: apply deployments
+        run: |
+          kubectl apply -f config-server-deployment.yaml
+          kubectl apply -f discovery-deployment.yaml
+          kubectl apply -f apigataway-deployment.yaml
+          kubectl apply -f dipendenti-deployment.yaml
+          kubectl apply -f newses-deployment.yaml
+          kubectl apply -f postgresql-deployment.yaml
+          kubectl apply -f postgres-persistentvolumeclaim.yaml
+          kubectl apply -f mail-dev-deployment.yaml
+          kubectl apply -f config-server-service.yaml
+          kubectl apply -f discovery-service.yaml
+          kubectl apply -f apigataway-service.yaml
+          kubectl apply -f dipendenti-service.yaml
+          kubectl apply -f newses-service.yaml
+          kubectl apply -f postgresql-service.yaml
+          kubectl apply -f mail-dev-service.yaml
+          kubectl apply -f network-policy.yaml
+
+      - name: wait for deployments
+        run: |
+          kubectl rollout status deployment/dipendenti-deployment
+          kubectl rollout status deployment/configserver-deployment
+          kubectl rollout status deployment/discovery-deployment
+          kubectl rollout status deployment/newses-deployment
+          kubectl rollout status deployment/apigataway-deployment
+          kubectl rollout status deployment/postgresql-deployment
+          kubectl rollout status deployment/mail-dev-deployment
+
+      - name: tests
+        run: |
+          kubectl port-forward service/apigataway-service 8222:8222 &
+          sleep 5
+          curl http://localhost:8222/app/v1/Dipendente/all
+          kubectl get pods
+          kubectl get all

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configserver-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configserver
+    template:
+      metadata:
+        labels:
+          app: configserver
+      spec:
+        containers:
+          - name: configserver
+            image: configserver:latest
+            ports:
+              - containerPort: 8888
