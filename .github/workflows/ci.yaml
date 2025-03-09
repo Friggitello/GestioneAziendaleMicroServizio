@@ -20,7 +20,19 @@ jobs:
           java-version: '23'
 
       - name: Build maven
-        run: mvn clean package
+        run: |
+          cd services/config-server && mvn clean package
+          cd ../discovery && mvn clean package
+          cd ../api_gateway && mvn clean package
+          cd ../dipendenti && mvn clean package
+          cd ../newses && mvn clean package
+          cd ../notifications && mvn clean package
 
       - name: Run tests
-        run: mvn test
+        run: |
+          cd services/config-server && mvn test
+          cd ../discovery && mvn test
+          cd ../api_gateway && mvn test
+          cd ../dipendenti && mvn test
+          cd ../newses && mvn test
+          cd ../notifications && mvn test
