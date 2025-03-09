@@ -21,12 +21,12 @@ jobs:
 
       - name: Build maven
         run: |
-          cd services/config-server && mvn clean package
-          cd ../discovery && mvn clean package
-          cd ../api_gateway && mvn clean package
-          cd ../dipendenti && mvn clean package
-          cd ../newses && mvn clean package
-          cd ../notifications && mvn clean package
+          cd services/config-server && mvn clean package compile
+          cd ../discovery && mvn clean package compile
+          cd ../api_gateway && mvn clean package compile
+          cd ../dipendenti && mvn clean package compile
+          cd ../newses && mvn clean package compile
+          cd ../notifications && mvn clean package compile
 
       - name: Run tests
         run: |
